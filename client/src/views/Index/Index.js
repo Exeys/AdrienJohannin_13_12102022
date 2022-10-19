@@ -9,7 +9,7 @@ import Footer from '../../components/Footer/Footer.js'
 
 const Index = () => {
     return (
-        <div>
+        <React.Fragment>
             <Header />
             <main>
                 <div class="hero">
@@ -57,7 +57,7 @@ const Index = () => {
                 </section>
             </main>
             <Footer />
-        </div>
+        </React.Fragment>
     )
 }
 
