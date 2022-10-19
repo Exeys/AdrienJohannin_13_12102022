@@ -3,7 +3,8 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Index from './views/Index/Index.js'
-import Signin from './views/Signin/Signin';
+import Signin from './views/Signin/Signin.js';
+import User from './views/User/User.js';
 
 function App() {
   return (
@@ -14,7 +15,10 @@ function App() {
 
           </Route>
           <Route path='/signin' element={<Signin />}>
-            
+
+          </Route>
+          <Route path='/user' element={<User />}>
+
           </Route>
         </Routes>
       </Router>
