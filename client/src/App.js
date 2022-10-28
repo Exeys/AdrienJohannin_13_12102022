@@ -5,11 +5,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Index from './views/Index/Index.js'
 import Signin from './views/Signin/Signin.js';
 import User from './views/User/User.js';
+import Header from './components/Header/Header.js';
+import Footer from './components/Footer/Footer.js';
 
 function App() {
   return (
     <React.Fragment>
+
       <Router>
+        <Header />
         <Routes>
           <Route path='/' element={<Index />}>
 
@@ -21,7 +25,9 @@ function App() {
 
           </Route>
         </Routes>
+        <Footer />
       </Router>
+
     </React.Fragment>
   );
 }
