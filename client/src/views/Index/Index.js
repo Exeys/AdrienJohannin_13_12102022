@@ -4,13 +4,10 @@ import chatIcon from '../../assets/img/icon-chat.png'
 import moneyIcon from '../../assets/img/icon-money.png'
 import securityIcon from '../../assets/img/icon-security.png'
 
-import Header from '../../components/Header/Header.js'
-import Footer from '../../components/Footer/Footer.js'
 
 const Index = () => {
     return (
         <React.Fragment>
-            <Header />
             <main>
                 <div className="hero">
                     <section className="hero-content">
@@ -24,7 +21,7 @@ const Index = () => {
                 <section className="features">
                     <h2 className="sr-only">Features</h2>
                     <div className="feature-item">
-                        <img src={chatIcon} alt="Chat Icon" class="feature-icon" />
+                        <img src={chatIcon} alt="Chat Icon" className="feature-icon" />
                         <h3 className="feature-item-title">You are our #1 priority</h3>
                         <p>
                             Need to talk to a representative? You can get in touch through our
@@ -56,7 +53,6 @@ const Index = () => {
                     </div>
                 </section>
             </main>
-            <Footer />
         </React.Fragment>
     )
 }
