@@ -8,6 +8,32 @@
         font-weight: bold;
         padding: 10px;
     }
+    .header-inputs {
+        .input {
+            width: 150px;
+            height: 12px;
+            padding: 10px;
+            margin: 10px;
+            &::placeholder {
+                color: #bfc8d3;
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+    .header-buttons {
+        .button {
+            width: 75px;
+            height: 30px;
+            margin: 0px 10px;
+            color:#00bc77;
+            border-color: #00bc77;
+            background-color: #00bc77;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
 }
 
 .account {
@@ -59,13 +85,11 @@
 @media (min-width: 720px) {
     .account {
         flex-direction: row;
-        .cta{
+        .cta {
             flex: 0;
             .transaction-button {
                 width: 200px;
-              }
+            }
         }
-      }
-    
-
+    }
 }
