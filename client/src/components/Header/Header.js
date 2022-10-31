@@ -1,13 +1,12 @@
 import React from "react";
-import { Link, Navigat, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import './Header.scss'
 import logo from '../../assets/img/argentBankLogo.png'
 import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
-    const state = useSelector((state) => state)
+    const user = useSelector((state) => state)
     const dispatch = useDispatch()
-    const isLogged = state.logged
     const nav = useNavigate()
 
     const logOut = (event) => {
@@ -26,7 +25,7 @@ const Header = () => {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
-            {!isLogged ? (
+            {!user.logged ? (
                 <div>
                     <Link to="/signin" className="main-nav-item">
                         <i className='fa fa-sign-in'></i>
@@ -37,7 +36,7 @@ const Header = () => {
                 <div>
                     <Link to="/user" className="main-nav-item" >
                         <i className="fa fa-user-circle"></i>
-                        {state.firstName}
+                        {user.firstName}
                     </Link>
                     <Link to="/" className="main-nav-item" onClick={logOut} >
                         <i className='fa fa-sign-out'></i>

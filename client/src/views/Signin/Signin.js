@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './Signin.scss'
 import Api from "../../service/api";
 import { useSelector, useDispatch } from "react-redux"
@@ -6,21 +6,37 @@ import { Navigate } from "react-router-dom";
 
 const Signin = () => {
 
+    useEffect(() => {
+        const fetchdata = async () => {
+            if (token) {
+                api.setToken(token)
+                dispatch(await api.getUserProfile())
+            }
+        }
+        fetchdata()
+
+    })
+
     const api = new Api()
-    const state = useSelector((state) => state)
+    const user = useSelector((state) => state)
     const dispatch = useDispatch()
     const [userName, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const isLogged = state.logged
+    const [rememberMe, setRememberMe] = useState(false)
+    const token = localStorage.getItem('token')
 
     const handleLogin = async (event) => {
+        console.log(rememberMe)
         event.preventDefault()
-        dispatch(await api.getUserToken(userName, password)).then(
+        dispatch(await api.getUserToken(userName, password, rememberMe))
+
+        setTimeout(async () => {
             dispatch(await api.getUserProfile())
-        )
+        }, 300);
+
     }
 
-    if (isLogged) {
+    if (user.logged) {
         return <Navigate to='/user' />
     }
 
@@ -40,13 +56,13 @@ const Signin = () => {
                             <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} required />
                         </div>
                         <div className="input-remember">
-                            <input type="checkbox" id="remember-me" />
+                            <input type="checkbox" id="remember-me" onChange={(e) => setRememberMe(!rememberMe)} />
                             <label htmlFor="remember-me"
                             >Remember me</label>
                         </div>
                         <button type="submit" className="sign-in-button">Sign In</button>
                     </form>
-                    {state.error ? <p>User or Password invalid</p> : ""}
+                    {user.error ? <p>Clique à nouveau</p> : ""}
                 </section>
             </main>
         </React.Fragment>

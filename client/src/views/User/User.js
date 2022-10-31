@@ -2,39 +2,50 @@ import React, { useState } from "react";
 import './User.scss'
 import { useSelector, useDispatch } from "react-redux"
 import Api from "../../service/api";
+import { Navigate } from "react-router-dom";
+
 
 
 
 
 const User = () => {
 
+
+
     const api = new Api()
-    const state = useSelector((state) => state)
+    const user = useSelector((state) => state)
     const dispatch = useDispatch()
 
     const [showForm, setShowForm] = useState(false)
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+    let [firstName, setFirstName] = useState(user.firstName)
+    let [lastName, setLastName] = useState(user.lastName)
 
-    const closeForm = () => {
-        setShowForm(false)
+    const handleForm = () => {
+        if (showForm) {
+            setShowForm(false)
+        } else {
+            setShowForm(true)
+        }
+
     }
-    const openForm = () => {
-        setShowForm(true)
-    }
+
     const handleEdit = async (event) => {
         event.preventDefault()
         dispatch(await api.updateUser(firstName, lastName))
+        handleForm()
     }
 
+    if (!user.logged) {
+        return <Navigate to='/' />
+    }
     return (
         <React.Fragment>
             <main className="main bg-dark">
                 <div className="header">
                     {!showForm ? (
                         <div>
-                            <h1>Welcome back<br />{state.firstName} {state.lastName}</h1>
-                            <button className="edit-button" onClick={openForm}>Edit Name</button>
+                            <h1>Welcome back<br />{user.firstName} {user.lastName}</h1>
+                            <button className="edit-button" onClick={handleForm}>Edit Name</button>
                         </div>
 
                     ) : (
@@ -42,12 +53,12 @@ const User = () => {
                             <h1>Welcome back</h1>
                             <form onSubmit={handleEdit}>
                                 <div className="header-inputs">
-                                    <input className="input" placeholder={state.firstName} onChange={(e) => setFirstName(e.target.value)}></input>
-                                    <input className="input" placeholder={state.lastName} onChange={(e) => setLastName(e.target.value)}></input>
+                                    <input className="input" placeholder={user.firstName} onChange={(e) => setFirstName(e.target.value)}></input>
+                                    <input className="input" placeholder={user.lastName} onChange={(e) => setLastName(e.target.value)}></input>
                                 </div>
                                 <div className="header-buttons">
                                     <button className="button" type="submit">Save</button>
-                                    <button className="button" onClick={closeForm}>Cancel</button>
+                                    <button className="button" onClick={handleForm}>Cancel</button>
                                 </div>
                             </form>
                         </div>

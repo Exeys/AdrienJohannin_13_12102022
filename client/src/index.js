@@ -10,6 +10,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 let persistor = persistStore(store)
 
+window.onbeforeunload = function() {
+  localStorage.removeItem('persist:root');
+  return '';
+};
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

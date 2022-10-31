@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
-import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, REGISTER, PURGE } from 'redux-persist'
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, REGISTER} from 'redux-persist'
+
 
 
 
@@ -18,7 +19,7 @@ const initialState = {
     token: "",
     id: "",
     email: "",
-    error: false
+    error: 0
 }
 
 
@@ -39,22 +40,24 @@ function userReducer(state = initialState, action) {
         case 'LOGIN_SUCCESS':
             return {
                 ...state,
-                logged: true,
-                token: action.token
+                logged:true
             };
         case 'LOGIN_ERROR':
             return {
                 ...state,
                 logged: false,
-                error: true
+                error: 1
             };
         case 'LOGOUT':
+            localStorage.clear()
+            sessionStorage.clear()
             return {
                 initialState
             };
         case 'FETCH_SUCCESS':
             return {
                 ...state,
+                logged:true,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
                 id: action.payload.id,
@@ -64,7 +67,7 @@ function userReducer(state = initialState, action) {
         case 'FETCH_ERROR':
             return {
                 ...state,
-                error: true
+                error: 2
             };
         case 'EDIT_SUCCESS':
             return {
@@ -75,7 +78,7 @@ function userReducer(state = initialState, action) {
         case 'EDIT_ERROR':
             return {
                 ...state,
-                error: true
+                error: 3
             }
         default:
             return state
@@ -87,7 +90,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, REGISTER,PERSIST],
             },
         }),
 })
