@@ -10,7 +10,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 let persistor = persistStore(store)
 
-window.onbeforeunload = function() {
+/**
+ * On window closing, persisted store is deleted too
+ */
+window.onbeforeunload = function () {
   localStorage.removeItem('persist:root');
   return '';
 };

@@ -11,18 +11,14 @@ import Footer from './components/Footer/Footer.js';
 function App() {
   return (
     <React.Fragment>
-
       <Router>
         <Header />
         <Routes>
           <Route path='/' element={<Index />}>
-
           </Route>
           <Route path='/signin' element={<Signin />}>
-
           </Route>
           <Route path='/user' element={<User />}>
-
           </Route>
         </Routes>
         <Footer />

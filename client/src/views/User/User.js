@@ -7,10 +7,11 @@ import { Navigate } from "react-router-dom";
 
 
 
+/**
+ * A component page which render User bank informations
+ */
 
 const User = () => {
-
-
 
     const api = new Api()
     const user = useSelector((state) => state)
@@ -19,6 +20,10 @@ const User = () => {
     const [showForm, setShowForm] = useState(false)
     let [firstName, setFirstName] = useState(user.firstName)
     let [lastName, setLastName] = useState(user.lastName)
+
+    /**
+     * If edit name is clicked, a form is displayed
+     */
 
     const handleForm = () => {
         if (showForm) {
@@ -29,12 +34,19 @@ const User = () => {
 
     }
 
+    /**
+     * If user choosed to saved new name parameters, 
+     * then api is called with the new wanted ones and closed the form
+     */
     const handleEdit = async (event) => {
         event.preventDefault()
         dispatch(await api.updateUser(firstName, lastName))
         handleForm()
     }
 
+    /**
+     * If user isn't logged, is redirected to index page
+     */
     if (!user.logged) {
         return <Navigate to='/' />
     }

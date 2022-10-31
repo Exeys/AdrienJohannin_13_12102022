@@ -4,8 +4,17 @@ import Api from "../../service/api";
 import { useSelector, useDispatch } from "react-redux"
 import { Navigate } from "react-router-dom";
 
+
+/**
+ * A component page for Signin
+ * 
+ */
 const Signin = () => {
 
+    /**
+     * On component mount/update if an user token is stored due to rememberMe choice
+     * the user is authenticated
+     */
     useEffect(() => {
         const fetchdata = async () => {
             if (token) {
@@ -25,8 +34,11 @@ const Signin = () => {
     const [rememberMe, setRememberMe] = useState(false)
     const token = localStorage.getItem('token')
 
+    /**
+     * On login button click, the function is called to fetch token and fetch datas relative to token
+     * @param {*} event 
+     */
     const handleLogin = async (event) => {
-        console.log(rememberMe)
         event.preventDefault()
         dispatch(await api.getUserToken(userName, password, rememberMe))
 
@@ -36,6 +48,9 @@ const Signin = () => {
 
     }
 
+    /**
+     * If the user is logged, redirected to user/profile page
+     */
     if (user.logged) {
         return <Navigate to='/user' />
     }

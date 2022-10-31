@@ -4,11 +4,19 @@ import './Header.scss'
 import logo from '../../assets/img/argentBankLogo.png'
 import { useDispatch, useSelector } from "react-redux";
 
+
+/**
+ * A function that render Header component 
+ */
 const Header = () => {
     const user = useSelector((state) => state)
     const dispatch = useDispatch()
     const nav = useNavigate()
 
+    /**
+     * Function called on logout button click, 
+     * call "LOGOUT" action to Redux Store and redirect user to Index
+     */
     const logOut = (event) => {
         event.preventDefault()
         dispatch({ type: 'LOGOUT' })

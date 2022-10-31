@@ -1,17 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
-import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, REGISTER} from 'redux-persist'
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, REGISTER } from 'redux-persist'
 
-
-
-
-const persistConfig = {
-    key: 'root',
-    storage,
-}
-
-const persistedReducer = persistReducer(persistConfig, userReducer)
-// state
+/**
+ * Initial state for user Store
+ */
 const initialState = {
     logged: false,
     firstName: "",
@@ -23,7 +16,11 @@ const initialState = {
 }
 
 
-// actions
+/**
+ * List of functions actions, which are called in function of returned API response
+ * @param {*} payload 
+ * @returns 
+ */
 export const LOGIN_SUCCESS = (payload) => ({ type: 'LOGIN_SUCCESS', payload })
 export const LOGIN_ERROR = () => ({ type: 'LOGIN_ERROR' })
 export const LOGOUT = () => ({ type: 'LOGOUT' })
@@ -32,15 +29,25 @@ export const FETCH_ERROR = () => ({ type: 'FETCH_ERROR' })
 export const EDIT_SUCCESS = (payload) => ({ type: 'EDIT_SUCCESS', payload })
 export const EDIT_ERROR = () => ({ type: 'EDIT_ERROR' })
 
+/**
+ * The store is saved in storage variable that represent localStorage
+ */
+const persistConfig = {
+    key: 'root',
+    storage,
+}
 
+/**
+ * Call a function that make persistant the user Reducer
+ */
+const persistedReducer = persistReducer(persistConfig, userReducer)
 
-// reducer
 function userReducer(state = initialState, action) {
     switch (action.type) {
         case 'LOGIN_SUCCESS':
             return {
                 ...state,
-                logged:true
+                logged: true
             };
         case 'LOGIN_ERROR':
             return {
@@ -57,7 +64,7 @@ function userReducer(state = initialState, action) {
         case 'FETCH_SUCCESS':
             return {
                 ...state,
-                logged:true,
+                logged: true,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
                 id: action.payload.id,
@@ -90,7 +97,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, REGISTER,PERSIST],
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, REGISTER, PERSIST],
             },
         }),
 })
