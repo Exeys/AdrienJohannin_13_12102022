@@ -57,7 +57,6 @@ function userReducer(state = initialState, action) {
             };
         case 'LOGOUT':
             localStorage.clear()
-            sessionStorage.clear()
             return {
                 initialState
             };

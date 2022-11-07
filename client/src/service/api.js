@@ -33,15 +33,10 @@ class Api {
                      * If user click on rememberMe input, token is saved in localStorage
                      */
                     localStorage.setItem('token', token)
-                    this.setToken(token)
+
                 }
-                else if (!rememberMe) {
-                    /**
-                     * If user do not click on rememberMe input, token is saved in sessionStorage
-                     */
-                    sessionStorage.setItem('token', token)
-                    this.setToken(token)
-                }
+                this.setToken(token)
+
                 /**
                  * Pass "LOGIN_SUCCESS" action to Redux Store
                  */
